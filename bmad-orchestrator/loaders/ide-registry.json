@@ -1,0 +1,120 @@
+{
+  "_comment": "IDE Registry — maps IDE name to the files the loader generates from AGENTS.md and the bmad-orchestrator package. Add a new IDE by appending an entry here OR by running `load.py --add-ide <name>`.",
+  "_version": "1.0.0",
+  "ides": {
+    "claude-code": {
+      "label": "Claude Code (Anthropic CLI/IDE)",
+      "detect": ["CLAUDE.md", ".claude"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "CLAUDE.md", "format": "passthrough", "header_note": true},
+        {"from": "agents/*.md", "to": ".claude/agents/", "format": "passthrough"},
+        {"from": "skills/*/SKILL.md", "to": ".claude/skills/{name}/SKILL.md", "format": "passthrough"},
+        {"from": "hooks/hooks.json", "to": ".claude/settings.local.json", "format": "merge_hooks_json"}
+      ]
+    },
+    "cursor": {
+      "label": "Cursor",
+      "detect": [".cursor", ".cursorrules"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": ".cursor/rules/00-agents.mdc", "format": "cursor_mdc"},
+        {"from": "agents/*.md", "to": ".cursor/rules/agent-{name}.mdc", "format": "cursor_mdc"}
+      ]
+    },
+    "windsurf": {
+      "label": "Windsurf (Codeium)",
+      "detect": [".windsurfrules", ".windsurf"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": ".windsurfrules", "format": "passthrough"},
+        {"from": "agents/*.md", "to": ".windsurf/workflows/{name}.md", "format": "passthrough"}
+      ]
+    },
+    "cline": {
+      "label": "Cline (formerly Claude Dev)",
+      "detect": [".clinerules"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": ".clinerules", "format": "passthrough"}
+      ]
+    },
+    "aider": {
+      "label": "Aider",
+      "detect": [".aider.conf.yml", "CONVENTIONS.md"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": "CONVENTIONS.md", "format": "passthrough"}
+      ]
+    },
+    "continue": {
+      "label": "Continue.dev",
+      "detect": [".continue", ".continuerc.json"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": ".continue/rules/agents.md", "format": "passthrough"}
+      ]
+    },
+    "kiro": {
+      "label": "Kiro (AWS)",
+      "detect": [".kiro"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "skills/*/SKILL.md", "to": ".kiro/skills/{name}/SKILL.md", "format": "kiro_skill"},
+        {"from": "agents/*.md", "to": ".kiro/agents/{name}.json", "format": "kiro_agent_json"},
+        {"from": "hooks/hooks.json", "to": ".kiro/hooks.json", "format": "passthrough"}
+      ]
+    },
+    "antigravity": {
+      "label": "Google Antigravity (Gemini 3.x)",
+      "detect": ["GEMINI.md"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": "GEMINI.md", "format": "passthrough", "header_note": "Generated from AGENTS.md — Antigravity reads this with higher priority"}
+      ]
+    },
+    "gemini-cli": {
+      "label": "Gemini CLI",
+      "detect": ["GEMINI.md"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": "GEMINI.md", "format": "passthrough"}
+      ]
+    },
+    "copilot": {
+      "label": "GitHub Copilot",
+      "detect": [".github/copilot-instructions.md"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": ".github/copilot-instructions.md", "format": "passthrough"}
+      ]
+    },
+    "zed": {
+      "label": "Zed",
+      "detect": [".zed"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"}
+      ]
+    },
+    "warp": {
+      "label": "Warp",
+      "detect": [".warp"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"}
+      ]
+    },
+    "roocode": {
+      "label": "RooCode (formerly RooCline)",
+      "detect": [".roo", ".roomodes"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"},
+        {"from": "AGENTS.md", "to": ".roo/rules/agents.md", "format": "passthrough"}
+      ]
+    },
+    "codex": {
+      "label": "OpenAI Codex CLI",
+      "detect": ["AGENTS.md"],
+      "outputs": [
+        {"from": "AGENTS.md", "to": "AGENTS.md", "format": "passthrough"}
+      ]
+    }
+  }
+}

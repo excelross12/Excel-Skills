@@ -1,0 +1,28 @@
+# BMAD session state — don't commit these (ephemeral per-session)
+.bmad/history.jsonl
+.bmad/debug-log.md
+.bmad/improvement.jsonl
+
+# Commit these (project knowledge):
+# .bmad/state.json
+# .bmad/anchors.json
+# .bmad/anchors-archive/
+
+# Node / Python
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE-generated (loader creates these in target projects, not here)
+.claude/
+.cursor/
+.kiro/
+.windsurf/
+CLAUDE.md
+GEMINI.md

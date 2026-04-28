@@ -1,0 +1,71 @@
+{
+  "_comment": "Portable Claude Code hook config. 6 hooks total. Loader merges this with .claude/settings.local.json.",
+  "_version": "1.1.0",
+  "_source": "bmad-orchestrator/hooks/hooks.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash bmad-orchestrator/hooks/session-boot.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash bmad-orchestrator/hooks/agent-router.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "_name": "smart-formatting",
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash bmad-orchestrator/hooks/smart-formatting.sh"
+          }
+        ]
+      },
+      {
+        "_name": "code-quality-enforcer",
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash bmad-orchestrator/hooks/code-quality.sh",
+            "timeout": 20
+          }
+        ]
+      },
+      {
+        "_name": "smart-commit",
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash bmad-orchestrator/hooks/smart-commit.sh"
+          }
+        ]
+      },
+      {
+        "_name": "error-tracker",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash bmad-orchestrator/hooks/error-tracker.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
