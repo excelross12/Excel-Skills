@@ -28,7 +28,8 @@ $ErrorActionPreference = "Stop"
 # Resolve paths
 $Source = $PSScriptRoot
 $SourceClaude = Join-Path $Source ".claude"
-$TargetResolved = Resolve-Path $Target
+New-Item -ItemType Directory -Force -Path $Target | Out-Null
+$TargetResolved = (Resolve-Path $Target).Path
 $TargetClaude = Join-Path $TargetResolved ".claude"
 
 Write-Host ""
@@ -40,7 +41,7 @@ Write-Host ""
 
 # Confirm if target already has .claude/ and not forced
 if ((Test-Path $TargetClaude) -and -not $Force) {
-    $reply = Read-Host "Target already has .claude/ — continue and merge? [y/N]"
+    $reply = Read-Host "Target already has .claude/ - continue and merge? [y/N]"
     if ($reply -notmatch '^[Yy]') {
         Write-Host "Aborted." -ForegroundColor Yellow
         exit 0
@@ -59,7 +60,7 @@ if ($Components -contains "Skills") {
     if (Test-Path $src) {
         Copy-Item -Recurse -Force:$Force -Path $src -Destination $TargetClaude
         $count = (Get-ChildItem $dst -Directory).Count
-        $installed += "Skills ($count skill directories)"
+        $installed += "Skills ($($count) skill directories)"
     } else {
         $skipped += "Skills (not found in source)"
     }
@@ -72,7 +73,7 @@ if ($Components -contains "Agents") {
     if (Test-Path $src) {
         Copy-Item -Recurse -Force:$Force -Path $src -Destination $TargetClaude
         $count = (Get-ChildItem $dst -Filter "*.md").Count
-        $installed += "Agents ($count agent files)"
+        $installed += "Agents ($($count) agent files)"
     } else {
         $skipped += "Agents (not found in source)"
     }
@@ -85,7 +86,7 @@ if ($Components -contains "Hooks") {
     if (Test-Path $src) {
         Copy-Item -Recurse -Force:$Force -Path $src -Destination $TargetClaude
         $count = (Get-ChildItem $dst -Filter "*.py").Count
-        $installed += "Hooks ($count Python hook scripts)"
+        $installed += "Hooks ($($count) Python hook scripts)"
     } else {
         $skipped += "Hooks (not found in source)"
     }
