@@ -18,12 +18,26 @@
     .\install-skills.ps1 -Target "C:\Projects\MyApp" -Force
 #>
 param(
-    [string]$Target = ".",
+    [string]$Target = "",
     [string[]]$Components = @("Skills", "Agents", "Hooks", "Settings"),
     [switch]$Force
 )
 
 $ErrorActionPreference = "Stop"
+
+# Show folder picker if no target was passed
+if (-not $Target) {
+    Add-Type -AssemblyName System.Windows.Forms
+    $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
+    $dialog.Description = "Select the project folder to install EXL Skills into"
+    $dialog.ShowNewFolderButton = $true
+    $dialog.RootFolder = [System.Environment+SpecialFolder]::MyComputer
+    if ($dialog.ShowDialog() -ne [System.Windows.Forms.DialogResult]::OK) {
+        Write-Host "Cancelled." -ForegroundColor Yellow
+        exit 0
+    }
+    $Target = $dialog.SelectedPath
+}
 
 # Resolve paths
 $Source = $PSScriptRoot
