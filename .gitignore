@@ -20,7 +20,7 @@ __pycache__/
 Thumbs.db
 
 # IDE-generated (loader creates these in target projects, not here)
-.claude/
+# .claude/ — intentionally tracked; this IS the skills source
 .cursor/
 .kiro/
 .windsurf/

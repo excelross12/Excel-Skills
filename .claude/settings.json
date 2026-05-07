@@ -1,0 +1,48 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python \".claude/hooks/session-start.py\""
+      }
+    ],
+    "PreCompact": [
+      {
+        "type": "command",
+        "command": "python \".claude/hooks/pre-compact.py\""
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \".claude/hooks/post-edit.py\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \".claude/hooks/post-bash.py\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "python \".claude/hooks/user-prompt-submit.py\""
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python \".claude/hooks/stop.py\""
+      }
+    ]
+  }
+}
